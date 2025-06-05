@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usman Akram</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #fff;
+            --accent-color: #e6b800;
+            --accent-hover: #cc9f00;
+            --card-bg: #1e1e1e;
+            --secondary-bg: #0a0a0a;
+            --border-color: #333;
+            --quote-color: #ccc;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --text-color: #121212;
+            --accent-color: #e6b800;
+            --accent-hover: #cc9f00;
+            --card-bg: #e0e0e0;
+            --secondary-bg: #d5d5d5;
+            --border-color: #aaa;
+            --quote-color: #555;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 35px;
+            font-size: 16px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a.active::after,
+        .nav-links a:hover::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--accent-color);
+            font-size: 20px;
+            cursor: pointer;
+            margin-left: 35px;
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.2);
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1516321310764-8a238815b2f0');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 26px;
+            margin-bottom: 40px;
+            color: var(--quote-color);
+            animation: fadeInUp 1.2s ease;
+        }
+
+        .cta-button {
+            padding: 18px 35px;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(230, 184, 0, 0.4);
+        }
+
+        .section {
+            padding: 100px 60px;
+            text-align: center;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            margin-bottom: 50px;
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            width: 60px;
+            height: 3px;
+            background: var(--accent-color);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .about-me-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .about-me-image {
+            max-width: 300px;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .about-me-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(230, 184, 0, 0.3);
+        }
+
+        .about-me-text {
+            text-align: left;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--quote-color);
+        }
+
+        .story-content {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--quote-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            color: var(--quote-color);
+        }
+
+        .project-filters {
+            margin-bottom: 40px;
+        }
+
+        .filter-btn {
+            padding: 12px 25px;
+            margin: 0 10px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+            display: none;
+        }
+
+        .project-card.active {
+            display: block;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .project-card h3 {
+            font-size: 26px;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .project-card p {
+            font-size: 16px;
+            color: var(--quote-color);
+        }
+
+        .skills-grid {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .skill-item {
+            background: var(--card-bg);
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 18px;
+            color: var(--accent-color);
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.15);
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: var(--accent-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            padding: 20px 40px;
+            position: relative;
+            margin-bottom: 40px;
+            width: 50%;
+        }
+
+        .timeline-item.left {
+            left: 0;
+        }
+
+        .timeline-item.right {
+            left: 50%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            top: 20px;
+        }
+
+        .timeline-item.left::before {
+            right: -8px;
+        }
+
+        .timeline-item.right::before {
+            left: -8px;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-content h3 {
+            font-size: 22px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .timeline-content p {
+            font-size: 16px;
+            color: var(--quote-color);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .blog-card h3 {
+            font-size: 22px;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+        }
+
+        .blog-card p {
+            font-size: 16px;
+            color: var(--quote-color);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 15px;
+            font-style: italic;
+            color: var(--quote-color);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            font-size: 60px;
+            color: var(--accent-color);
+            position: absolute;
+            top: -20px;
+            left: 20px;
+        }
+
+        .testimonial-card p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .testimonial-card .author {
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--accent-color);
+            font-style: normal;
+        }
+
+        .cta-banner {
+            background: var(--card-bg);
+            padding: 40px;
+            text-align: center;
+            margin: 80px 60px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-banner h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 18px;
+            margin-bottom: 25px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-color);
+            font-size: 16px;
+            transition: border 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--accent-color);
+            outline: none;
+        }
+
+        .contact-form .error {
+            border-color: #ff5555;
+        }
+
+        .contact-form button {
+            padding: 18px 40px;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            color: var(--accent-color);
+            font-size: 24px;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+            color: var(--accent-hover);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            background: var(--secondary-bg);
+            color: var(--quote-color);
+            font-size: 14px;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 20px 30px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--card-bg);
+                padding: 20px;
+                transform: translateY(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .nav-links.active {
+                transform: translateY(0);
+            }
+
+            .nav-links a {
+                margin: 15px 0;
+                font-size: 18px;
+            }
+
+            .theme-toggle {
+                margin-left: 20px;
+            }
+
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-content p {
+                font-size: 20px;
+            }
+
+            .section {
+                padding: 60px 20px;
+            }
+
+            .section h2 {
+                font-size: 32px;
+            }
+
+            .about-me-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-me-image {
+                margin: 0 auto;
+            }
+
+            .about-me-text {
+                text-align: center;
+            }
+
+            .project-card img {
+                height: 180px;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 20px;
+            }
+
+            .timeline-item.right,
+            .timeline-item.left {
+                left: 0;
+            }
+
+            .timeline-item.right::before,
+            .timeline-item.left::before {
+                left: 12px;
+            }
+
+            .cta-banner {
+                margin: 40px 20px;
+                padding: 30px;
+            }
+
+            .cta-banner h2 {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Usman Akram</div>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about-me">About Me</a>
+            <a href="#story">My Story</a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#blog">Blog</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+            <button class="theme-toggle" aria-label="Toggle theme">🌙</button>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div id="particles-js"></div>
+        <div class="hero-content">
+            <h1>Crafting Digital Excellence</h1>
+            <p>Creative Developer Building Elegant & Innovative Solutions</p>
+            <a href="#projects" class="cta-button">Explore My Work</a>
+        </div>
+    </section>
+
+    <section id="about-me" class="section">
+        <h2>About Me</h2>
+        <div class="about-me-content">
+            <img src=",.jpg" alt="Your Portrait" class="about-me-image">
+            <div class="about-me-text">
+                <p>Hello, I'm a dedicated developer with a passion for creating visually stunning and highly functional digital experiences. With a focus on elegance and innovation, I bring ideas to life through code, design, and creativity. My mission is to craft solutions that not only meet but exceed expectations, delivering unparalleled value to clients and users alike.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="story" class="section">
+        <h2>My Story</h2>
+        <div class="story-content">
+            <p>I'm a passionate developer with over a decade of experience in creating seamless, user-centric digital experiences. Specializing in modern web technologies like React, Node.js, and WebGL, I transform complex ideas into elegant, high-performance solutions. My work blends creativity, precision, and innovation, delivering projects that captivate and inspire. Whether it's a luxurious website or an interactive data visualization, I strive for excellence in every pixel.</p>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <h2>My Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <h3>Web Development</h3>
+                <p>Building responsive, scalable websites using cutting-edge frameworks like React, Next.js, and Node.js.</p>
+            </div>
+            <div class="service-card">
+                <h3>UI/UX Design</h3>
+                <p>Crafting intuitive and visually stunning interfaces that enhance user engagement and satisfaction.</p>
+            </div>
+            <div class="service-card">
+                <h3>Creative Coding</h3>
+                <p>Developing interactive animations and 3D visualizations using WebGL and Three.js.</p>
+            </div>
+            <div class="service-card">
+                <h3>Performance Optimization</h3>
+                <p>Enhancing website speed and SEO to drive traffic and improve user experience.</p>
+            </div>
+            <div class="service-card">
+            <h3>E-Commerce</h3>
+                <p>Enhancing website speed and SEO to drive traffic and improve user experience.</p>
+            </div>
+            <div class="service-card">
+                <h3>Analytic Tool</h3>
+                <p>Enhancing website speed and SEO to drive traffic and improve user experience.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <h2>My Projects</h2>
+        <div class="project-filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="web">Web</button>
+            <button class="filter-btn" data-filter="mobile">Mobile</button>
+            <button class="filter-btn" data-filter="data">Data</button>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card active" data-category="web">
+                <img src="vc.jpg" alt="Project 1">
+                <h3>Corporate Website</h3>
+                <p>A dynamic web application built with React, Node.js, and MongoDB for seamless performance.</p>
+            </div>
+            <div class="project-card active" data-category="web">
+                <img src="cx.jpg" alt="Project 2">
+                <h3>E-Commerce Platform</h3>
+                <p>A mobile-responsive e-commerce platform using Next.js and Stripe integration.</p>
+            </div>
+            <div class="project-card active" data-category="data">
+                <img src="xz.jpg" alt="Project 3">
+                <h3>Data Dashboard</h3>
+                <p>A data visualization dashboard with D3.js, Python, and real-time analytics.</p>
+            </div>
+            <div class="project-card active" data-category="mobile">
+                <img src="zl.jpg" alt="Project 4">
+                <h3>Mobile App</h3>
+                <p>A cross-platform mobile app built with React Native for a luxury brand.</p>
+            </div>
+            <div class="project-card active" data-category="web">
+                <img src="lk.jpg" alt="Project 5">
+                <h3>Portfolio Site</h3>
+                <p>A luxurious portfolio website with advanced animations and responsive design.</p>
+            </div>
+            <div class="project-card active" data-category="data">
+                <img src="kj.webp" alt="Project 6">
+                <h3>Analytics Tool</h3>
+                <p>An AI-powered analytics tool with Flask and TensorFlow integration.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <h2>My Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2015 - First Project</h3>
+                    <p>Launched my first professional website for a local business, igniting my passion for coding.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2018 - Senior Developer</h3>
+                    <p>Joined a leading agency, leading web development projects for global clients.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <h3>2020 - Creative Coding</h3>
+                    <p>Mastered WebGL and Three.js, creating award-winning interactive visualizations.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <h3>2023 - Freelance Studio</h3>
+                    <p>Founded my own studio, delivering bespoke digital solutions for luxury brands.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section">
+        <h2>Latest Insights</h2>
+        <div class="blog-grid">
+            <div class="blog-card">
+                <img src="mn.png" alt="Blog 1">
+                <h3>Web Animation Trends</h3>
+                <p>Exploring the latest in GSAP and WebGL for creating immersive digital experiences.</p>
+            </div>
+            <div class="blog-card">
+                <img src="bv.jpg" alt="Blog 2">
+                <h3>Designing for Luxury</h3>
+                <p>Key principles for crafting elegant and sophisticated digital interfaces.</p>
+            </div>
+            <div class="blog-card">
+                <img src="nb.webp" alt="Blog 3">
+                <h3>Performance Optimization</h3>
+                <p>Techniques to boost website speed and SEO for better user engagement.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section">
+        <h2>Client Testimonials</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>An exceptional developer who delivered our project on time with stunning results. Highly recommend!</p>
+                <div class="author">— John Doe, CEO of TechCorp</div>
+            </div>
+            <div class="testimonial-card">
+                <p>The attention to detail and creativity brought to our website was beyond our expectations.</p>
+                <div class="author">— Jane Smith, Founder of StartUp</div>
+            </div>
+            <div class="testimonial-card">
+                <p>Professional, reliable, and innovative. Our dashboard project was a complete success!</p>
+                <div class="author">— Emily Brown, Data Analyst</div>
+            </div>
+            <div class="testimonial-card">
+                <p>The interactive visualizations transformed our brand’s online presence. Truly exceptional work!</p>
+                <div class="author">— Michael Chen, Creative Director</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="cta-banner">
+        <h2>Ready to Elevate Your Digital Presence?</h2>
+        &nbsp;
+        <a href="#contact" class="cta-button">Hire Me Today</a>
+    </div>
+
+    <section id="contact" class="section">
+        <h2>Contact Me</h2>
+        <div class="contact-form">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" placeholder="Your Message" rows="6" required></textarea>
+            <button onclick="submitForm()">Send Message</button>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 My Portfolio. Crafted with Passion.</p>
+        <div class="social-links">
+            <a href="https://linkedin.com" target="_blank">🔗</a>
+            <a href="https://github.com" target="_blank">🐙</a>
+            <a href="https://twitter.com" target="_blank">🐦</a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        // Particle.js initialization
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#e6b800' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#e6b800', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: true, straight: false }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+            // Highlight active section
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-links a');
+            let current = '';
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                if (window.scrollY >= sectionTop) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Theme toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'light') {
+            body.setAttribute('data-theme', 'light');
+            themeToggle.textContent = '☀️';
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const isLight = body.getAttribute('data-theme') === 'light';
+            body.setAttribute('data-theme', isLight ? 'dark' : 'light');
+            themeToggle.textContent = isLight ? '🌙' : '☀️';
+            localStorage.setItem('theme', isLight ? 'dark' : 'light');
+        });
+
+        // Project filters
+        document.querySelectorAll('.filter-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const filter = button.getAttribute('data-filter');
+                document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                document.querySelectorAll('.project-card').forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.classList.add('active');
+                    } else {
+                        card.classList.remove('active');
+                    }
+                });
+            });
+        });
+
+        // Contact form validation
+        function submitForm() {
+            const name = document.getElementById('name');
+            const email = document.getElementById('email');
+            const message = document.getElementById('message');
+            let valid = true;
+
+            if (!name.value.trim()) {
+                name.classList.add('error');
+                valid = false;
+            } else {
+                name.classList.remove('error');
+            }
+
+            if (!email.value.trim() || !/\S+@\S+\.\S+/.test(email.value)) {
+                email.classList.add('error');
+                valid = false;
+            } else {
+                email.classList.remove('error');
+            }
+
+            if (!message.value.trim()) {
+                message.classList.add('error');
+                valid = false;
+            } else {
+                message.classList.remove('error');
+            }
+
+            if (valid) {
+                alert('Message sent successfully!');
+                name.value = '';
+                email.value = '';
+                message.value = '';
+            }
+        }
+
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        document.querySelectorAll('.section').forEach(section => {
+            section.classList.add('animate-on-scroll');
+            observer.observe(section);
+        });
+
+        // Add animate class for CSS animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .animate-on-scroll { opacity: 0; transform: translateY(50px); transition: opacity 0.8s ease, transform 0.8s ease; }
+            .animate-on-scroll.animate { opacity: 1; transform: translateY(0); }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
